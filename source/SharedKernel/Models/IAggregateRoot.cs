@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SharedKernel.Models
 {
-    public interface IAggregateRoot
-    {
-    }
+public interface IAggregateRoot
+{
+}
 }

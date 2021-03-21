@@ -4,13 +4,15 @@ using System.Text;
 
 namespace SharedKernel.Events
 {
-    public class DomainEventBase : IDomainEvent
+public class DomainEventBase : IDomainEvent
+{
+    public DomainEventBase()
     {
-        public DomainEventBase()
-        {
-            this.OccurredOn = DateTime.Now;
-        }
-
-        public DateTime OccurredOn { get; }
+        this.OccurredOn = DateTime.Now;
     }
+
+    public DateTime OccurredOn {
+        get;
+    }
+}
 }

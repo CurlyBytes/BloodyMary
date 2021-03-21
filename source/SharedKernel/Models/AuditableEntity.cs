@@ -4,14 +4,26 @@ using System.Text;
 
 namespace SharedKernel.Models
 {
-    public abstract class AuditableEntity
-    {
-        public DateTime Created { get; set; } = SystemClock.Now;
+public abstract class AuditableEntity
+{
+    public DateTime Created {
+        get;
+        set;
+    } = SystemClock.Now;
 
-        public string CreatedBy { get; set; }
-
-        public DateTime? LastModified { get; set; } = SystemClock.Now;
-
-        public string LastModifiedBy { get; set; }
+    public string CreatedBy {
+        get;
+        set;
     }
+
+    public DateTime? LastModified {
+        get;
+        set;
+    } = SystemClock.Now;
+
+    public string LastModifiedBy {
+        get;
+        set;
+    }
+}
 }

@@ -4,10 +4,12 @@ using System.Text;
 
 namespace SharedKernel.Rules
 {
-    public interface IBusinessRule
-    {
-        bool IsBroken();
+public interface IBusinessRule
+{
+    bool IsBroken();
 
-        string Message { get; }
+    string Message {
+        get;
     }
+}
 }

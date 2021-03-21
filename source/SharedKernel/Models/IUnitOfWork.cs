@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SharedKernel.Models
 {
-    public interface IUnitOfWork
-    {
-        Task<int> CommitAsync(CancellationToken cancellationToken = default(CancellationToken));
-    }
+public interface IUnitOfWork
+{
+    Task<int> CommitAsync(CancellationToken cancellationToken = default(CancellationToken));
+}
 }
