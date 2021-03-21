@@ -2,27 +2,22 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharedKernel.Models
-{
-    public static class SystemClock
-    {
-        private static DateTime? _customDate;
+namespace SharedKernel.Models {
+  public static class SystemClock {
+    private static DateTime? _customDate;
 
-        public static DateTime Now
-        {
-            get
-            {
-                if (_customDate.HasValue)
-                {
-                    return _customDate.Value;
-                }
-
-                return DateTime.UtcNow;
-            }
+    public static DateTime Now {
+      get {
+        if (_customDate.HasValue) {
+          return _customDate.Value;
         }
 
-        public static void Set(DateTime customDate) => _customDate = customDate;
-
-        public static void Reset() => _customDate = null;
+        return DateTime.UtcNow;
+      }
     }
+
+    public static void Set(DateTime customDate) => _customDate = customDate;
+
+    public static void Reset() => _customDate = null;
+  }
 }
