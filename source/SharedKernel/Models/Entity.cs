@@ -7,20 +7,20 @@ using System.Text;
 namespace SharedKernel.Models {
   public abstract class Entity {
 
-    private List<IDomainEvent> _domainEvents;
+    private List<DomainEvent> _domainEvents;
 
     /// <summary>
     /// Domain events occurred.
     /// </summary>
-    public IReadOnlyCollection<IDomainEvent> DomainEvents =>
+    public IReadOnlyCollection<DomainEvent> DomainEvents =>
         _domainEvents?.AsReadOnly();
 
     /// <summary>
     /// Add domain event.
     /// </summary>
     /// <param name="domainEvent"></param>
-    protected void AddDomainEvent(IDomainEvent domainEvent) {
-      _domainEvents = _domainEvents ?? new List<IDomainEvent>();
+    protected void AddDomainEvent(DomainEvent domainEvent) {
+      _domainEvents = _domainEvents ?? new List<DomainEvent>();
       this._domainEvents.Add(domainEvent);
     }
 

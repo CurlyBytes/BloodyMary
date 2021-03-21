@@ -14,6 +14,15 @@ ValueObjects
 
 Entity - Must use GUID must have auditable entity attach
 
+Events -
+combine clean architecture without using mediatr in the domain
+and add events via events from kramil russian developer
+           //clean architecture 
+            //DomainEvents.AddDomainEvent(new CreateWarehouseEvent(this));
+
+            // kamilgrzybek
+            this.AddDomainEvent(new CreateWarehouseEvent(this));
+
 Referrence Kamil Grzybek
 
 TASK:
