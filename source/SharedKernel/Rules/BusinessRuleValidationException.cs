@@ -2,28 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharedKernel.Rules
-{
-public class BusinessRuleValidationException : Exception
-{
-    public IBusinessRule BrokenRule {
-        get;
+namespace SharedKernel.Rules {
+  public class BusinessRuleValidationException : Exception {
+    public IBusinessRule BrokenRule { get; }
+
+    public string Details { get; }
+
+    public BusinessRuleValidationException(IBusinessRule brokenRule)
+        : base(brokenRule.Message) {
+      BrokenRule = brokenRule;
+      this.Details = brokenRule.Message;
     }
 
-    public string Details {
-        get;
+    public override string ToString() {
+      return $"{BrokenRule.GetType().FullName}: {BrokenRule.Message}";
     }
-
-    public BusinessRuleValidationException(IBusinessRule brokenRule) : base(brokenRule.Message)
-    {
-        BrokenRule = brokenRule;
-        this.Details = brokenRule.Message;
-    }
-
-    public override string ToString()
-    {
-        return $"{BrokenRule.GetType().FullName}: {BrokenRule.Message}";
-    }
-}
+  }
 }
 }
