@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedKernel.Rules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,13 @@ namespace SharedKernel.Models {
     NotEqualOperator(ValueObject left,
                      ValueObject right) => !EqualOperator(left, right);
 
-#endregion
-  }
+        #endregion
+        protected static void CheckRule(IBusinessRule rule)
+        {
+            if (rule.IsBroken())
+            {
+                throw new BusinessRuleValidationException(rule);
+            }
+        }
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 using SharedKernel.Models;
+using SharedKernel.Rules;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,16 +13,19 @@ namespace Domain.WarehouseContext.ValueObjects
 
         public WarehouseCodeName(string warehouseCodeName)
         {
-            string regexPattern = @"\b\w*[-']\w*\b";
-            Guard.Against.NullOrEmpty(warehouseCodeName, nameof(warehouseCodeName));
-            Guard.Against.NullOrWhiteSpace(warehouseCodeName, nameof(warehouseCodeName));
-            Guard.Against.InvalidFormat(warehouseCodeName, nameof(warehouseCodeName), regexPattern);
-            Guard.Against.InvalidInput(warehouseCodeName, nameof(warehouseCodeName), CannotMoreThanTenCharacter);
+            const string regexPattern = @"\b\w*[-']\w*\b";
+            const int minimumWarehouseCodeNameLength = 1;
+            const int maximumWarehouseCodeNameLength = 25;
 
-            Name = warehouseCodeName ?? throw new ArgumentNullException(nameof(warehouseCodeName));
+            CheckRule(new NullOrEmptyStringChecker(nameof(warehouseCodeName), warehouseCodeName));
+            CheckRule(new NullOrEmptyWhitespaceChecker(nameof(warehouseCodeName), warehouseCodeName));
+            CheckRule(new InvalidFormatChecker(nameof(warehouseCodeName), warehouseCodeName, regexPattern));
+            CheckRule(new NullOrEmptyStringChecker(nameof(warehouseCodeName), warehouseCodeName));
+            CheckRule(new OutOfRangeChecker(nameof(warehouseCodeName), warehouseCodeName.Length,
+                minimumWarehouseCodeNameLength, maximumWarehouseCodeNameLength));
+
+            Name = warehouseCodeName;
         }
-
-        public bool CannotMoreThanTenCharacter(string codename) => codename.Length <= 10;
 
         public override string ToString()
         {

@@ -4,6 +4,7 @@ using Domain.WarehouseContext.Rules;
 using Domain.WarehouseContext.ValueObjects;
 using SharedKernel.Events;
 using SharedKernel.Models;
+using SharedKernel.Rules;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,12 +33,16 @@ namespace Domain.WarehouseContext
         protected void SetWarehouseName(
             string warehouseName)
         {
-            const string regexPatternWareHouseName = @"^[a-zA-Z0-9_]+( [a-zA-Z0-9_]+)*$";
+            const string regexPatternWarehouseName = @"^[a-zA-Z0-9_]+( [a-zA-Z0-9_]+)*$";
+            const int minimumWarehouseNameLength = 1;
+            const int maximumWarehouseNameLength = 120;
 
-            Guard.Against.NullOrEmpty(warehouseName, nameof(warehouseName));
-            Guard.Against.NullOrWhiteSpace(warehouseName, nameof(warehouseName));
-            Guard.Against.InvalidFormat(warehouseName, nameof(warehouseName), regexPatternWareHouseName);
-
+            CheckRule(new NullOrEmptyStringChecker(nameof(warehouseName), warehouseName));
+            CheckRule(new NullOrEmptyWhitespaceChecker(nameof(warehouseName), warehouseName));
+            CheckRule(new InvalidFormatChecker(nameof(warehouseName), warehouseName, regexPatternWarehouseName));
+            CheckRule(new NullOrEmptyStringChecker(nameof(warehouseName), warehouseName));
+            CheckRule(new OutOfRangeChecker(nameof(warehouseName), warehouseName.Length,
+                minimumWarehouseNameLength, maximumWarehouseNameLength));
             WarehouseName = warehouseName;
         }
 
@@ -58,8 +63,8 @@ namespace Domain.WarehouseContext
          WarehouseCodeName codeName,
          IWarehouseCodeNameUniqueChecker iCodeNameCheckerUniqueness)
         {
-            Guard.Against.InvalidInput(codeName, nameof(codeName), iCodeNameCheckerUniqueness.IsUnique);
-
+       
+            CheckRule(new WarehouseCodeNameUniqueChecker(iCodeNameCheckerUniqueness, codeName));
             return new Warehouse(warehouseName, codeName);
         }
 
