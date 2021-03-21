@@ -1,5 +1,4 @@
-﻿using Ardalis.GuardClauses;
-using Domain.WarehouseContext.Events;
+﻿using Domain.WarehouseContext.Events;
 using Domain.WarehouseContext.Rules;
 using Domain.WarehouseContext.ValueObjects;
 using SharedKernel.Events;
@@ -7,6 +6,7 @@ using SharedKernel.Models;
 using SharedKernel.Rules;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Domain.WarehouseContext
@@ -19,6 +19,7 @@ namespace Domain.WarehouseContext
 
         public WarehouseCodeName WarehouseCodeName { get; private set; }
 
+        private readonly List<Item> _item;
         private Warehouse(
             string warehouseName,
             WarehouseCodeName warehouseCodeName)
@@ -26,7 +27,7 @@ namespace Domain.WarehouseContext
             BussinessWarehouseId = new WarehouseId(Guid.NewGuid());
             SetWarehouseName(warehouseName);
             SetWarehouseCodeName(warehouseCodeName);
-
+            _item = new List<Item>();
             this.AddDomainEvent(new CreateWarehouseEvent(this));
         }
 
@@ -65,7 +66,47 @@ namespace Domain.WarehouseContext
         {
        
             CheckRule(new WarehouseCodeNameUniqueChecker(iCodeNameCheckerUniqueness, codeName));
+
             return new Warehouse(warehouseName, codeName);
+        }
+
+        public ItemId NewItem(
+            ItemType ItemType,
+            ItemCodeName ItemCodeName,
+            string ItemName,
+            IItemCodeNameUniqueChecker iItemCodeNameUniqueChecker)
+        {
+            Item item = Item.Create(ItemType, ItemCodeName, 
+                ItemName, iItemCodeNameUniqueChecker);
+
+            _item.Add(item);
+            this.AddDomainEvent(new NewItemInWarehouseEvent(item.ItemId));
+
+            return item.ItemId;
+        }
+        public void RemoveItem(ItemId itemId)
+        {
+            CheckRule(new WarehouseItemIsExist(_item, itemId));
+
+            Item item = _item.FirstOrDefault(itemIndex => itemIndex.ItemId == itemId);
+            _item.Remove(item);
+
+            this.AddDomainEvent(new RemoveItemInWarehouseEvent(itemId));
+        }
+
+        public Item ModifyItem(ItemId itemId,Item itemModify)
+        {
+            CheckRule(new WarehouseItemIsExist(_item, itemId));
+
+            Item item = _item.FirstOrDefault(itemIndex => itemIndex.ItemId == itemId);
+            item.SetItemType(itemModify.ItemType);
+            item.SetItemCodeName(itemModify.ItemCodeName);
+            item.SetItemName(itemModify.ItemName);
+
+            this.AddDomainEvent(new ModifyItemInWarehouseEvent(item.ItemType,
+                item.ItemCodeName, item.ItemName));
+
+            return item;
         }
 
     }

@@ -1,5 +1,4 @@
-﻿using Ardalis.GuardClauses;
-using SharedKernel.Models;
+﻿using SharedKernel.Models;
 using SharedKernel.Rules;
 using System;
 using System.Collections.Generic;
