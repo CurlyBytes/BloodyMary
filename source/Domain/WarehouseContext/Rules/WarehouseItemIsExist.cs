@@ -1,5 +1,4 @@
-﻿using Domain.WarehouseContext.Data;
-using SharedKernel.Rules;
+﻿using SharedKernel.Rules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
