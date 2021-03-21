@@ -20,16 +20,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{47D7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{76878E76-FA7C-4C65-98D4-BE6E44CD072F}"
 	ProjectSection(SolutionItems) = preProject
+		Guidelines.md = Guidelines.md
 		docs\README.md = docs\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{3ECB91E5-4DB4-4279-891E-42BDB2C23A0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{3ECB91E5-4DB4-4279-891E-42BDB2C23A0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "source\SharedKernel\SharedKernel.csproj", "{7D89B42F-8BC7-41CE-8664-5CD1DF39CF88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel", "source\SharedKernel\SharedKernel.csproj", "{7D89B42F-8BC7-41CE-8664-5CD1DF39CF88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "source\Application\Application.csproj", "{F8E6A533-1F3D-42EA-9983-EB80CBA571C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "source\Application\Application.csproj", "{F8E6A533-1F3D-42EA-9983-EB80CBA571C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "tests\UnitTest\UnitTest.csproj", "{394E36C0-11EA-49E9-BA53-18BCC8D5D206}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "tests\UnitTest\UnitTest.csproj", "{394E36C0-11EA-49E9-BA53-18BCC8D5D206}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
